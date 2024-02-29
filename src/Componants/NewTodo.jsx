@@ -1,27 +1,70 @@
 import React, { useState } from "react";
-import Todos from "./Todos";
 
-export default function NewTodo(props) {
-  const [todo, setTodo] = useState("");
-  const handelInputChange = (event) => {
-    setTodo(event.target.value);
-  };
+export default function NewTodo() {
+  // using State
+  const [todo, setTodo] = useState({ title: "" }, { desc: "" });
+
+  //   For Destructure
+  const { title, desc } = todo;
+
+  //  For submit
   const handelSubmit = (event) => {
     event.preventDefault();
-    props.onTodo(todo);
+    console.log(todo);
+    setTodo({ title: "", desc: "" });
+  };
+
+  //   For handelChange
+  const handelChange = (event) => {
+    const name = event.target.name;
+    setTodo((oldTodo) => {
+      return { ...oldTodo, [name]: event.target.value };
+    });
   };
   return (
-    <form onSubmit={handelSubmit}>
-      <label htmlFor="Todo">New Todo : </label>
-      <input
-        type="text"
-        id="Todo"
-        name="Todo"
-        value={todo}
-        onChange={handelInputChange}
-        className="h-10 w-52 border-2"
-      />
-      <button className="h-10 w-fit border-2">Add Todo</button>
+    <form
+      className="flex flex-col justify-center items-center px-5"
+      onSubmit={handelSubmit}
+    >
+      <div className="flex flex-col">
+        <div className="flex justify-between items-center">
+          <label
+            htmlFor="title"
+            className="text-white font-serif font-semibold"
+          >
+            Title :
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={title}
+            className="h-10 w-72 rounded-lg px-3"
+            onChange={handelChange}
+          />
+        </div>
+        <div className="my-5 flex justify-between items-center">
+          <label htmlFor="desc" className="text-white font-serif font-semibold">
+            Description :
+          </label>
+          <input
+            type="textarea"
+            id="desc"
+            name="desc"
+            value={desc}
+            className="h-16 w-72 rounded-lg px-3"
+            onChange={handelChange}
+          />
+        </div>
+      </div>
+      <div>
+        <button
+          type="submit"
+          className="text-white rounded-md bg-black flex justify-center items-center font-serif font-bold px-5 py-3"
+        >
+          Add Todo
+        </button>
+      </div>
     </form>
   );
 }
