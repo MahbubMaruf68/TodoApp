@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function NewTodo() {
+export default function NewTodo(props) {
   // using State
   const [todo, setTodo] = useState({ title: "" }, { desc: "" });
 
@@ -10,7 +10,7 @@ export default function NewTodo() {
   //  For submit
   const handelSubmit = (event) => {
     event.preventDefault();
-    console.log(todo);
+    props.onAddTodo(todo);
     setTodo({ title: "", desc: "" });
   };
 

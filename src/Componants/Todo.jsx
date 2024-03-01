@@ -1,7 +1,12 @@
 import React from "react";
 
 export default function Todo(props) {
-  const { title, desc, id } = props.todo;
+  const { title, desc } = props.todo;
+  const { id } = props;
+  // For Delete
+  const handelClick = (id) => {
+    props.onRemoveTodo(id);
+  };
   return (
     <article className="flex justify-between items-center border-2 mt-2 rounded-md px-10 h-32 hover:bg-[#101B30] w-96 mx-10 bg-black">
       <div>
@@ -9,7 +14,12 @@ export default function Todo(props) {
         <p className="text-white">{desc}</p>
       </div>
       <div>
-        <button className="text-red-200 hover:text-red-600">
+        <button
+          onClick={() => {
+            handelClick(id);
+          }}
+          className="text-red-200 hover:text-red-600"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
